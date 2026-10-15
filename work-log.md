@@ -54,17 +54,21 @@ has never specified Layer 2. The spec claims that gap.
 stream processor, a FHIR server, or a blockchain adapter may all be conformant
 implementations of both layers. Blockchain-originated events are valid Layer 1 inputs.
 
-**Files committed to spec-community-specification (main):**
-- `2._Scope.md` — full two-layer scope with in/out-of-scope boundaries and design
-  work pointers
-- `Readme.md` — problem statement, two-layer explanation, technology neutrality,
-  CS license rationale, contributor getting-started guide, related repo table
+**Files committed and pushed:**
+- `spec-community-specification` (main): `2._Scope.md`, `Readme.md` — pushed ✓
+- `community` (master): stale repo name/path fixes + website changes — pushed ✓
+- `spec-conceptual-model` (main): `work-log.md` session record — pushed ✓
+
+**Website changes (community repo):**
+- `index.html` — new "Open Shared-Ledger Protocol" section with two-layer diagram,
+  gap statement (blockchain/ISO 20022/XBRL/shared ERP named), CTA to spec repo;
+  Conceptual Model card updated; Open ERP card absorbed; Ledger Lab card updated
+- All 6 pages — Community Specification added as first footer Projects link;
+  Open ERP Discussion removed from footers
 
 ### Open items following this session
 
-- [ ] **Push spec-community-specification to GitHub** — commits are local only;
-  push blocked by Dropbox during session. Push manually:
-  `cd spec-community-specification && git push origin main`
+- [x] **Push spec-community-specification to GitHub** — pushed ✓
 
 - [ ] **Register spec-community-specification in workspace file** —
   `sharealedger.code-workspace` should include this repo alongside the others.
