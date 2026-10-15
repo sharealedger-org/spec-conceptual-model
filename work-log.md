@@ -32,6 +32,15 @@ cross-cutting concerns.
 - `universal_ledger` → `proto-universal-ledger` ✓ (archived)
 - `Community_Specification` → `spec-community-specification` ✓
 
+**Pinned repos decided (GitHub UI — set manually):**
+GitHub orgs support up to 6 pinned repos; no CLI available. Decided order:
+1. `community` — entry point, issues, membership, governance
+2. `spec-conceptual-model` — intellectual core of the project
+3. `ledger-lab` — active research and code
+4. `ledgerlearning` — public learning resources, broadest audience
+5. `spec-community-specification` — signals legitimacy as a governed open project
+6. *(leave empty — no active tool or prototype warrants the slot yet)*
+
 **File references updated across all repos (committed separately per repo):**
 - `community/README.md` — repo registry table + creation policy added; renamed repo references updated
 - `community/meetings/CorporateDocuments/2026-10-01_L.Membership_Access_Policy.md` — `admin` → `org-admin`, `members` → `org-members`
