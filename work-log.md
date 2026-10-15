@@ -27,7 +27,7 @@ cross-cutting concerns.
 - `sharealedger-conceptual-model` → `spec-conceptual-model` ✓
 - `sharealedger-books` → `org-books` ✓
 - Future hospice prototype: `proto-hospice` (not yet created)
-- Future git-ledger rename: `git-ledger` → `tool-git-ledger` (when convenient; low priority)
+- `git-ledger` → `tool-git-ledger` ✓
 
 **File references updated across all repos (committed separately per repo):**
 - `community/README.md` — repo registry table + creation policy added; renamed repo references updated
