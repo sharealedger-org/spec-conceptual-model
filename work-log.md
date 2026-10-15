@@ -7,6 +7,80 @@ cross-cutting concerns.
 
 ---
 
+## Session: 2025 — spec-community-specification scope and community repo updates
+
+### Work completed this session
+
+**community repo — stale references fixed (committed):**
+- `sharealedger-conceptual-model` → `spec-conceptual-model` in 6 HTML files + README.md
+  (14 occurrences); this was the old repo name before the naming convention session
+- `GenevaERS/ERP_DISCUSSION_STARTER.md` → `sources/GenevaERS/ERP_DISCUSSION_STARTER.md`
+  in README.md and 5 HTML files; path changed when repo was restructured into
+  sources/framework/projects layers
+
+**spec-community-specification — cloned and scoped (committed):**
+
+Repo was previously a near-empty JDF Community Specification template with a stub
+`2._Scope.md` ("Sharealedger is focused on shared ledgers") and generic JDF `Readme.md`.
+
+**Framing decision made:** `spec-community-specification` is the right home for the
+**open shared-ledger protocol** — the specification layer that no existing standard
+covers. Scope set as two layers:
+
+- **Layer 1 — Shared-partition interface:** operations, identifiers, authorization
+  rules, and message semantics for exchanging authorized economic events across
+  organizational boundaries without disclosing private accounting projections.
+  Feeds from `projects/shared-storage/` design work.
+
+- **Layer 2 — Event-to-position derivation contract:** normative rules for correctly
+  deriving participant-specific accounting positions from shared or private events
+  under declared reference-data versions and accounting rules, with a complete,
+  verifiable audit trace from every published position to its source events, rules,
+  and reference data. Feeds from `framework/` conformance example work and Ledger Lab.
+
+**Key distinction recorded in scope:** An implementation satisfying Layer 1 only has
+a shared *journal*. An implementation satisfying both layers has a shared *ledger*.
+This distinction directly names the blockchain gap: blockchain provides Layer 1 but
+has never specified Layer 2. The spec claims that gap.
+
+**Why this is original:** No existing standard covers both layers together:
+- Blockchain/DLT: journal only; no posting process, no derivation contract
+- ISO 20022/SWIFT/FIX: message formats; no posting or position rules
+- FHIR/HL7: clinical resources; no shared/private partition or derivation
+- XBRL/Global Ledger/IFRS taxonomy: report structures; no derivation model or lineage
+- Shared ERP: assumes common chart of accounts and common operator; not cross-org
+
+**Technology neutrality stated explicitly:** GenevaERS, a relational database, a
+stream processor, a FHIR server, or a blockchain adapter may all be conformant
+implementations of both layers. Blockchain-originated events are valid Layer 1 inputs.
+
+**Files committed to spec-community-specification (main):**
+- `2._Scope.md` — full two-layer scope with in/out-of-scope boundaries and design
+  work pointers
+- `Readme.md` — problem statement, two-layer explanation, technology neutrality,
+  CS license rationale, contributor getting-started guide, related repo table
+
+### Open items following this session
+
+- [ ] **Push spec-community-specification to GitHub** — commits are local only;
+  push blocked by Dropbox during session. Push manually:
+  `cd spec-community-specification && git push origin main`
+
+- [ ] **Register spec-community-specification in workspace file** —
+  `sharealedger.code-workspace` should include this repo alongside the others.
+
+- [ ] **Layer 2 conformance example** — the event-to-position derivation contract
+  (Layer 2) requires the first conformance example from `framework/` and Ledger Lab
+  to produce stable, testable derivation rules before spec content can be proposed
+  here. This is the next major milestone for this spec repo. Track in
+  `projects/ledger-lab/todo.md`.
+
+- [ ] **Governance roles** — `5._Governance.md` names Maintainer and Editor roles
+  but leaves them unassigned. Assign at minimum a Maintainer before the first
+  Working Group contribution arrives.
+
+---
+
 ## Session: 2025 — Repo Naming Convention and Registry
 
 ### Work completed this session
