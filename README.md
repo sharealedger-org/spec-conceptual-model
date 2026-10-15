@@ -48,8 +48,12 @@ conceptual-model/
 │   │   ├── README.md                  ← conceptual model mapping
 │   │   ├── todo.md                    ← active task list
 │   │   ├── log.md                     ← session log
-│   │   ├── fhir-mapping.md            ← FHIR R4/R5 mapping stub
-│   │   └── shared-storage-infrastructure.md
+│   │   └── fhir-mapping.md            ← FHIR R4/R5 mapping stub
+│   ├── shared-storage/                ← provider-independent interface contract + prototypes
+│   │   ├── README.md                  ← project charter and scope
+│   │   ├── todo.md                    ← active task list
+│   │   ├── log.md                     ← session log
+│   │   └── shared-storage-infrastructure.md  ← topology analysis, IBM Cloud stack
 │   └── ledger-lab/                    ← reference implementation spec
 │       ├── README.md
 │       ├── todo.md
@@ -86,6 +90,9 @@ GenevaERS materials, and presentations live here.
 
 - **[Hospice App](projects/hospiceapp/README.md)** — a non-financial shared ledger
   for hospice family caregivers; first prototype target for the framework.
+- **[Shared Storage](projects/shared-storage/README.md)** — provider-independent
+  interface contract, topology catalogue, and prototype instances (IBM Cloud first)
+  for the shared partition layer that all Sharealedger examples require.
 - **[Ledger Lab](projects/ledger-lab/README.md)** — reference implementation of
   the open accounting framework; spec lives here, code in the `ledger-lab` repo.
 

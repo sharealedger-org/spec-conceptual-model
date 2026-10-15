@@ -598,9 +598,21 @@ different organizations write and read the shared partition. A hospice nurse wor
 family caregivers are individuals with personal devices; the pharmacy is a separate organization.
 None of them share an existing IT infrastructure.
 
-The question of who operates the shared store, under what authorization model, and under which
-regulatory framework is addressed in
-[`decisions/shared-storage-infrastructure.md`](../../decisions/shared-storage-infrastructure.md).
-That decision record is the appropriate home for the infrastructure scope boundary, IBM Cloud
-prototype direction, and the interface contract requirements. This example document describes
-only the business concepts and the sharing boundary.
+The provider-independent interface contract, topology analysis, provider registration model,
+and IBM Cloud prototype plan are owned by the
+[`projects/shared-storage/`](../shared-storage/README.md) project. That project is the
+appropriate home for infrastructure scope, prototype direction, and interface contract
+requirements. This example document describes only the business concepts and the sharing
+boundary.
+
+Hospice-specific infrastructure constraints that remain here:
+
+- **HIPAA:** Any shared store used for this example must be covered by a HIPAA Business
+  Associate Agreement. IBM Cloud's HIPAA-eligible tier satisfies this; other topologies
+  must provide equivalent coverage.
+- **Consumer identity:** Family caregivers do not have enterprise identities. The prototype
+  must support a consumer identity model (email/password or social login) connected to the
+  shared partition's authorization layer.
+- **Synthetic data:** The first prototype iteration should use synthetic or de-identified
+  data to avoid triggering the full HIPAA BAA requirement before the interface contract is
+  validated.

@@ -7,21 +7,23 @@ Read this at the start of every working session before doing anything else.
 ## Every session
 
 1. **Read [`README.md`](README.md)** — repo structure and what lives where
-2. **Read [`work-log.md`](work-log.md)** — what has been done, what is open at the
-   repo level, confidentiality notes
+2. **Read [`work-log.md`](work-log.md)** — open items, last session summary,
+   confidentiality notes
+3. **Ask the user** — "Which project do you want to work on, or is this a
+   framework/repo-level session?" Then read only that project's files.
 
-## If working on a specific project
+## Only after the user chooses a project
 
-3. **Read `projects/<name>/README.md`** — what the project is and its current state
-4. **Read `projects/<name>/todo.md`** — active task list; check HIGH items first
-5. **Read `projects/<name>/log.md`** — what was done last session and the current
-   state of the project
+4. **Read `projects/<name>/log.md`** — what was done last session and current state
+5. **Read `projects/<name>/todo.md`** — active task list; check HIGH items first
+6. **Read `projects/<name>/README.md`** only if you need deeper context
 
 ## Active projects
 
 | Project | README | Todo | Log |
 |---|---|---|---|
 | Hospice App | [`projects/hospiceapp/README.md`](projects/hospiceapp/README.md) | [`todo.md`](projects/hospiceapp/todo.md) | [`log.md`](projects/hospiceapp/log.md) |
+| Shared Storage | [`projects/shared-storage/README.md`](projects/shared-storage/README.md) | [`todo.md`](projects/shared-storage/todo.md) | [`log.md`](projects/shared-storage/log.md) |
 | Ledger Lab | [`projects/ledger-lab/README.md`](projects/ledger-lab/README.md) | [`todo.md`](projects/ledger-lab/todo.md) | [`log.md`](projects/ledger-lab/log.md) |
 
 ---

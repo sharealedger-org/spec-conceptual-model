@@ -1,9 +1,9 @@
-# Decision: Shared Storage Infrastructure
+# Shared Storage Infrastructure — Working Analysis
 
 **Status:** Open question — working analysis for community discussion. This is not a
 ratified decision, a product commitment, or an architecture mandate.
 
-**Related example:** [`model/examples/hospice-caregiver/README.md`](../model/examples/hospice-caregiver/README.md)
+**Related example:** [`projects/hospiceapp/README.md`](../hospiceapp/README.md)
 
 ---
 
@@ -95,7 +95,7 @@ of them through the interface contract. No topology is normative for production.
 A note on distributed ledger / blockchain topologies: Sharealedger has a developed position on
 blockchain and distributed ledgers, established across multiple *Conversations with Kip* episodes
 between 2017 and 2022 and summarized in
-[`decisions/theoretical-foundation.md`](theoretical-foundation.md). The short form of that
+[`sources/theoretical-foundation.md`](../../sources/theoretical-foundation.md). The short form of that
 position is recorded at the end of this section. Any community proposal invoking blockchain as
 a candidate implementation for the shared store should engage that analysis before proceeding.
 
@@ -171,7 +171,7 @@ a FHIR R4/R5 server as the shared store.
 - Domain-specific; useful for the hospice example but not for Sharealedger generally
 - FHIR compatibility is high value for interoperability with existing clinical systems;
   the Sharealedger event model should carry explicit FHIR mappings even if FHIR is not
-  the storage layer — see [`decisions/fhir-mapping.md`](fhir-mapping.md) (to be written)
+  the storage layer — see [`projects/hospiceapp/fhir-mapping.md`](../hospiceapp/fhir-mapping.md)
 - Mapping layer complexity may obscure the conceptual model if FHIR becomes the primary
   definition rather than a compatibility surface
 
@@ -244,7 +244,7 @@ throughput is not the binding constraint in any of them.
 - Any future proposal to use Hyperledger Fabric or similar must address all five gaps above
   and demonstrate how the posting process, double-entry derivation, and reporting integration
   are provided by a layer above the blockchain
-- Full analysis and episode references: [`decisions/theoretical-foundation.md`](theoretical-foundation.md)
+- Full analysis and episode references: [`sources/theoretical-foundation.md`](../../sources/theoretical-foundation.md)
 
 ---
 
