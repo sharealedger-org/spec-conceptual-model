@@ -34,3 +34,23 @@ Items are tracked here by priority. Move completed items to `log.md` when done.
   - Late-arriving and corrected events
   - Rules declaring dependencies and producing auditable generated events
   - Minimum conformance suite definition
+
+## RESEARCH
+
+- [ ] **Apache OFBiz as CKB proof vehicle** — OFBiz is an Apache 2.0 full ERP
+  (GL, AR, AP, inventory, order management, HR) with a well-documented data model
+  and a complete demo dataset (multiple companies, orders, payments, GL entries)
+  that loads from structured XML seed files. The mapping target is well-specified:
+  `AcctgTrans` / `AcctgTransEntry` is a degenerate Universal Journal; `GlAccount`,
+  `Party`, `Product`, `CostCenter` are natural CKB dimensions. A CKB transformation
+  against OFBiz demo data would demonstrate that:
+  - chartfields can be derived bottom-up from observed event data rather than a
+    pre-specified schema (complements the VA data model-generation idea in ledger-lab);
+  - the Event → Movement → Position model in the framework subsumes the OFBiz GL
+    entry structure without loss of information;
+  - the same processing rules apply to commercial ERP data as to VA government data,
+    proving the broader ERP generality of the CKB method.
+  The AP/AR cycle, inventory receipt-to-payment, and payroll stubs in the demo data
+  provide enough domain variety to make the proof non-trivial. OFBiz seed data lives
+  under `framework/accounting/data/` in the OFBiz source tree (Apache license,
+  publicly available). Evaluate alongside the VA fixture work in ledger-lab.
