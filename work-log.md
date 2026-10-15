@@ -21,10 +21,11 @@ cross-cutting concerns.
   - *(no prefix)* — well-known core projects: `community`, `ledger-lab`, `ledgerlearning`
 - No industry taxonomy; industry context belongs inside `spec-conceptual-model` project specs
 
-**Three repos to be renamed on GitHub (action required by user):**
-- `admin` → `org-admin`
-- `members` → `org-members`
-- `conceptual-model` → `spec-conceptual-model`
+**Repos renamed on GitHub:**
+- `admin` → `org-admin` ✓
+- `members` → `org-members` ✓
+- `sharealedger-conceptual-model` → `spec-conceptual-model` ✓
+- `sharealedger-books` → `org-books` ✓
 - Future hospice prototype: `proto-hospice` (not yet created)
 - Future git-ledger rename: `git-ledger` → `tool-git-ledger` (when convenient; low priority)
 
@@ -41,16 +42,14 @@ cross-cutting concerns.
 - `ledgerlearning/docs/about.html` — `conceptual-model` → `spec-conceptual-model`
 - `ledgerlearning/docs/books/.../appendix-1-accounting-model/index.html` — `conceptual-model` → `spec-conceptual-model`
 - `sources/theoretical-foundation.md` — `members` → `org-members` (2 occurrences)
+- `sharealedger.code-workspace` — all display names updated to match new repo names
+- `sharealedger-books/.git/config` remote URL — updated to `org-books`
+- `conceptual-model/.git/config` remote URL — updated to `spec-conceptual-model`
 
 **GitHub note:** GitHub automatically redirects old repo URLs after rename, so no links break
 immediately. The file updates make the references authoritative and remove redirect dependency.
 
-### Pending manual action (GitHub UI — cannot be done from file edits)
-
-- [ ] Go to github.com/sharealedger-org → Settings → rename `admin` → `org-admin`
-- [ ] Go to github.com/sharealedger-org → Settings → rename `members` → `org-members`
-- [ ] Go to github.com/sharealedger-org → Settings → rename `conceptual-model` → `spec-conceptual-model`
-- [ ] (Optional, low priority) rename `git-ledger` → `tool-git-ledger`
+**Remaining optional item:** rename `git-ledger` → `tool-git-ledger` on GitHub when convenient.
 
 ---
 
