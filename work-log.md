@@ -68,20 +68,11 @@ implementations of both layers. Blockchain-originated events are valid Layer 1 i
 
 ### Open items following this session
 
-- [x] **Push spec-community-specification to GitHub** — pushed ✓
-
-- [ ] **Register spec-community-specification in workspace file** —
-  `sharealedger.code-workspace` should include this repo alongside the others.
-
 - [ ] **Layer 2 conformance example** — the event-to-position derivation contract
-  (Layer 2) requires the first conformance example from `framework/` and Ledger Lab
-  to produce stable, testable derivation rules before spec content can be proposed
-  here. This is the next major milestone for this spec repo. Track in
+  requires the first conformance example from `framework/` and Ledger Lab to produce
+  stable, testable derivation rules before spec content can be proposed in
+  `spec-community-specification`. Next milestone for this spec repo; track in
   `projects/ledger-lab/todo.md`.
-
-- [ ] **Governance roles** — `5._Governance.md` names Maintainer and Editor roles
-  but leaves them unassigned. Assign at minimum a Maintainer before the first
-  Working Group contribution arrives.
 
 ---
 
