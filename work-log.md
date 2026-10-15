@@ -28,6 +28,9 @@ cross-cutting concerns.
 - `sharealedger-books` → `org-books` ✓
 - Future hospice prototype: `proto-hospice` (not yet created)
 - `git-ledger` → `tool-git-ledger` ✓
+- `VAPostAnalysisRSCDemo` → `proto-va-rsc` ✓ (archived)
+- `universal_ledger` → `proto-universal-ledger` ✓ (archived)
+- `Community_Specification` → `spec-community-specification` ✓
 
 **File references updated across all repos (committed separately per repo):**
 - `community/README.md` — repo registry table + creation policy added; renamed repo references updated
