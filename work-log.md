@@ -7,6 +7,53 @@ cross-cutting concerns.
 
 ---
 
+## Session: 2025 — Repo Naming Convention and Registry
+
+### Work completed this session
+
+**Repo proliferation strategy decided:**
+- Organizing principle: repo *type*, not industry vertical
+- Prefix scheme adopted:
+  - `proto-` — time-limited prototype instances
+  - `spec-` — specifications and conceptual models
+  - `tool-` — standalone tools
+  - `org-` — internal org infrastructure
+  - *(no prefix)* — well-known core projects: `community`, `ledger-lab`, `ledgerlearning`
+- No industry taxonomy; industry context belongs inside `spec-conceptual-model` project specs
+
+**Three repos to be renamed on GitHub (action required by user):**
+- `admin` → `org-admin`
+- `members` → `org-members`
+- `conceptual-model` → `spec-conceptual-model`
+- Future hospice prototype: `proto-hospice` (not yet created)
+- Future git-ledger rename: `git-ledger` → `tool-git-ledger` (when convenient; low priority)
+
+**File references updated across all repos (committed separately per repo):**
+- `community/README.md` — repo registry table + creation policy added; renamed repo references updated
+- `community/meetings/CorporateDocuments/2026-10-01_L.Membership_Access_Policy.md` — `admin` → `org-admin`, `members` → `org-members`
+- `community/.github/ISSUE_TEMPLATE/membership-request.md` — `members` → `org-members`
+- `community/meetings/README.md` — `members` → `org-members`
+- `community/docs/membership.html` — `members` → `org-members`
+- `community/docs/governance.html` — `members` → `org-members`
+- `community/docs/books/.../appendix-1-accounting-model/index.html` — `conceptual-model` → `spec-conceptual-model`
+- `community/docs/books/balancing-act/appendix-1-accounting-model.html` — `conceptual-model` → `spec-conceptual-model`
+- `ledgerlearning/README.md` — `members` → `org-members`
+- `ledgerlearning/docs/about.html` — `conceptual-model` → `spec-conceptual-model`
+- `ledgerlearning/docs/books/.../appendix-1-accounting-model/index.html` — `conceptual-model` → `spec-conceptual-model`
+- `sources/theoretical-foundation.md` — `members` → `org-members` (2 occurrences)
+
+**GitHub note:** GitHub automatically redirects old repo URLs after rename, so no links break
+immediately. The file updates make the references authoritative and remove redirect dependency.
+
+### Pending manual action (GitHub UI — cannot be done from file edits)
+
+- [ ] Go to github.com/sharealedger-org → Settings → rename `admin` → `org-admin`
+- [ ] Go to github.com/sharealedger-org → Settings → rename `members` → `org-members`
+- [ ] Go to github.com/sharealedger-org → Settings → rename `conceptual-model` → `spec-conceptual-model`
+- [ ] (Optional, low priority) rename `git-ledger` → `tool-git-ledger`
+
+---
+
 ## Session: 2025 — Repo Restructure + Confidentiality Fixes
 
 ### Work completed this session

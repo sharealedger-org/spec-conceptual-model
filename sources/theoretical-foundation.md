@@ -65,7 +65,7 @@ architecture the monograph describes. The key correspondences:
 
 ## Papers Circulating for Comment
 
-Papers 00–02 are available to Sharealedger members in the private `sharealedger-org/members`
+Papers 00–02 are available to Sharealedger members in the private `sharealedger-org/org-members`
 repository. They cover:
 
 - **Paper 00** — Introduction and Master Framework: the 35-year argument arc, the JPEG/RAW
@@ -98,7 +98,7 @@ Sharealedger across more than 330 episodes covering accounting history, data sup
 instrument ledgers, metric engines, GenevaERS, reclassification, and shared ledgers.
 
 Full transcripts are available to Sharealedger members in the private
-`sharealedger-org/members` repository under
+`sharealedger-org/org-members` repository under
 `content/conversations-with-kip/Transcripts/`. A corpus guide and thematic index are
 provided at `content/conversations-with-kip/Conversations_With_Kip_Corpus_Guide.md`.
 
