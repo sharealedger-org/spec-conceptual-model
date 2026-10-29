@@ -25,6 +25,12 @@ Items are tracked here by priority. Move completed items to `log.md` when done.
 
 ## MEDIUM
 
+- [ ] **Operations required by the Small Venture Sample** — add to the contract: copy-on-exit (named,
+  atomic, confirmed; distinct from the terms-of-use export), retry-safe append (a duplicate
+  event ID does not create a second event), and claim-versus-confirmation status on events.
+  See [`projects/small-venture/spec.md`](../small-venture/spec.md) §8. The first binding for the
+  sample is Git-backed files.
+
 - [ ] **Authorization model specification** — the interface contract names four
   authorization categories (read, write, administrative, audit) but does not specify
   the rule language. Define a portable authorization rule format expressible in

@@ -20,6 +20,12 @@ Items are tracked here by priority. Move completed items to `log.md` when done.
 
 ## MEDIUM
 
+- [ ] **Scale run of the Small Venture Sample fixture** — once the small-volume Python implementation
+  passes, run the same fixture at volume. Measure where processing in memory and processing
+  through CKB access paths cross over, and verify the equivalence test in
+  [`framework/perspective-derivation-and-persistence.md`](../../framework/perspective-derivation-and-persistence.md)
+  on both sides. See [`projects/small-venture/`](../small-venture/README.md).
+
 - [ ] **Conformance fixture data files** — plain JSON/CSV files representing parties,
   agreements, instruments, events, reference data, rules, and expected outputs.
   This repo defines the fixtures; ledger-lab implements against them.
