@@ -7,6 +7,47 @@ cross-cutting concerns.
 
 ---
 
+## Session: 2026-10-28 — Concepts deck review; generate-vs-store rule; Small Venture Sample project
+
+### Work completed this session
+
+- Reviewed slides 32–56 of the 2021 concepts deck (images and text). Findings recorded in the
+  new framework record and small-venture log. The deck is under the gitignored
+  `members/content/decks/`; its slides are not reproduced here.
+- Created [`framework/perspective-derivation-and-persistence.md`](framework/perspective-derivation-and-persistence.md):
+  proposed rule that shared events are recorded once and each participant's perspective is derived;
+  stored perspectives are caches with lineage; any automatic switch between processing modes must
+  pass an equivalence test. Evidence drawn from `tool-git-ledger` session log.
+- Created [`projects/small-venture/`](projects/small-venture/README.md) (README, spec, todo, log): a
+  small-scale sample, synthetic fixture only, referencing the shared-storage contract.
+- Roadmap step 3 amended: a small-volume Python implementation is permitted as a second check of
+  the fixture; Ledger Lab measures scale afterward.
+- Added cross-project todo items to `shared-storage` (copy-on-exit, retry-safe append,
+  claim/confirmation) and `ledger-lab` (scale run of the sample fixture).
+- Registered the project in `STARTUP.md` and `README.md`.
+
+- Created [`framework/ledger-types-and-fund-dimensions.md`](framework/ledger-types-and-fund-dimensions.md)
+  (proposed): separates ledger type, book basis and fund/restriction; holds pledges in a commitment
+  ledger; evidence from the VA workbook (`ujLedgerID` FIN/CMT) and the U.S. Treasury standard
+  general ledger (budgetary versus proprietary accounts, commitment-to-payment stages).
+  Nonprofit and government standard-setter sites were not reachable; those points are marked unverified.
+
+### Open items from this session
+
+- [ ] **Verify pledge recognition rules** (conditional vs. unconditional) and fund classes against
+  primary standards, ideally with a practitioner. See the framework record §3.4 and §7.
+- [ ] **Slide 52 vs. slide 42** — the deck stores one party's fully formed journal in the shared
+  partition, which conflicts with perspective-independent events. Resolve in the shared-event
+  representation decision (see `projects/small-venture/todo.md`).
+- [ ] **Date/Time not shared** in the deck's field mock-up — conflicts with the valid-time invariant.
+- [ ] **"Mine" token** in a shared rule (slide 38) — perspective-relative value in a shared rule.
+- [ ] **Lineage gap in `tool-git-ledger`** — confirmed in `gitledger/ledger.py`: the provenance
+  stamp is `git rev-parse HEAD` only. It does not detect uncommitted journal or mapping-rule
+  changes, and records no rule or reference-data version. Listed as a tool-side task in
+  `projects/small-venture/spec.md` §10.
+
+---
+
 ## Session: 2025 — spec-community-specification scope and community repo updates
 
 ### Work completed this session

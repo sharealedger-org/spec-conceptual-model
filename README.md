@@ -41,7 +41,9 @@ conceptual-model/
 ├── framework/                         ← generalized principles for shared ledgers
 │   ├── open-accounting-framework.md   ← working vocabulary, invariants, perspectives
 │   ├── open-accounting-model-brief.md ← branches of work, first conformance target
-│   └── practical-implementation-roadmap.md
+│   ├── practical-implementation-roadmap.md
+│   ├── perspective-derivation-and-persistence.md  ← generate vs. store rule
+│   └── ledger-types-and-fund-dimensions.md        ← commitment ledgers, funds, pledges
 │
 ├── projects/                          ← goal-directed work threads (what to build)
 │   ├── hospiceapp/                    ← hospice caregiver shared ledger
@@ -54,6 +56,11 @@ conceptual-model/
 │   │   ├── todo.md                    ← active task list
 │   │   ├── log.md                     ← session log
 │   │   └── shared-storage-infrastructure.md  ← topology analysis, IBM Cloud stack
+│   ├── small-venture/                   ← small-scale sample, synthetic fixture
+│   │   ├── README.md
+│   │   ├── spec.md                    ← scenario, events, boundaries, acceptance
+│   │   ├── todo.md
+│   │   └── log.md
 │   └── ledger-lab/                    ← reference implementation spec
 │       ├── README.md
 │       ├── todo.md
@@ -93,6 +100,9 @@ GenevaERS materials, and presentations live here.
 - **[Shared Storage](projects/shared-storage/README.md)** — provider-independent
   interface contract, topology catalogue, and prototype instances (IBM Cloud first)
   for the shared partition layer that all Sharealedger examples require.
+- **[Small Venture Sample](projects/small-venture/README.md)** — a small-scale sample of a shared
+  ledger between partners and customers; second implementation (Python) of the same
+  conformance fixture, using the shared-storage contract.
 - **[Ledger Lab](projects/ledger-lab/README.md)** — reference implementation of
   the open accounting framework; spec lives here, code in the `ledger-lab` repo.
 
@@ -106,6 +116,12 @@ GenevaERS materials, and presentations live here.
   of work, first conformance target, and development sequence.
 - [Practical Implementation Roadmap](framework/practical-implementation-roadmap.md) —
   the path from concepts to schemas, data, code, and tests.
+- [Perspective Derivation and Persistence](framework/perspective-derivation-and-persistence.md) —
+  proposed rule on generating versus storing participant perspectives, and the
+  conformance test for any switch between modes.
+- [Ledger Types and Fund Dimensions](framework/ledger-types-and-fund-dimensions.md) —
+  proposed separation of ledger type, book basis and fund/restriction; how pledges and
+  commitments are held; evidence from the VA workbook and the U.S. Treasury standard ledger.
 
 ---
 

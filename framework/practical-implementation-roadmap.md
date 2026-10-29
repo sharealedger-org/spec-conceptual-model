@@ -64,6 +64,8 @@ The schemas should be understandable without a particular runtime. JSON Schema i
 
 Implement the smallest calculation in Ledger Lab's mainline Scala path that derives a position from events and a selected reference-data version. The same inputs must produce the same output. Python may prepare fixtures or inspect evidence, but must not replace the measured financial path.
 
+A separate small-volume implementation in Python is permitted as a second, independent check of the same fixture (see [Small Venture Sample](../projects/small-venture/README.md)). It is a conformance check, not a performance claim; scale is measured afterward in Ledger Lab. Where an implementation switches between processing modes, [Perspective Derivation and Persistence](perspective-derivation-and-persistence.md) defines the equivalence test.
+
 The calculator should emit:
 
 - the resulting position;

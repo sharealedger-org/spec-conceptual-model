@@ -25,6 +25,7 @@ Read this at the start of every working session before doing anything else.
 | Hospice App | [`projects/hospiceapp/README.md`](projects/hospiceapp/README.md) | [`todo.md`](projects/hospiceapp/todo.md) | [`log.md`](projects/hospiceapp/log.md) |
 | Shared Storage | [`projects/shared-storage/README.md`](projects/shared-storage/README.md) | [`todo.md`](projects/shared-storage/todo.md) | [`log.md`](projects/shared-storage/log.md) |
 | Ledger Lab | [`projects/ledger-lab/README.md`](projects/ledger-lab/README.md) | [`todo.md`](projects/ledger-lab/todo.md) | [`log.md`](projects/ledger-lab/log.md) |
+| Small Venture Sample | [`projects/small-venture/README.md`](projects/small-venture/README.md) | [`todo.md`](projects/small-venture/todo.md) | [`log.md`](projects/small-venture/log.md) |
 
 ---
 
@@ -39,10 +40,14 @@ conceptual-model/
 ├── framework/          ← generalized principles for shared ledgers
 │   ├── open-accounting-framework.md
 │   ├── open-accounting-model-brief.md
-│   └── practical-implementation-roadmap.md
+│   ├── practical-implementation-roadmap.md
+│   ├── perspective-derivation-and-persistence.md
+│   └── ledger-types-and-fund-dimensions.md
 │
 ├── projects/           ← goal-directed work threads (what to build)
 │   ├── hospiceapp/     ← hospice caregiver shared ledger
+│   ├── shared-storage/ ← provider-independent storage contract
+│   ├── small-venture/    ← small-scale shared ledger sample (Python, synthetic fixture)
 │   └── ledger-lab/     ← reference implementation spec
 │
 └── sources/            ← contributed materials (copyright retained by contributors)
