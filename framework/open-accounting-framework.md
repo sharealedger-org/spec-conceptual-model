@@ -250,6 +250,43 @@ The value proposition is not only lower transaction or reconciliation cost. A sh
 be evaluated for whether it produces more truthful, trusted, timely, and useful analytics for all
 authorized parties.
 
+### Control totals as the authoritative shared fact
+
+**Added October 30, 2026.**
+
+The **control total** — the balance derived from mutually confirmed events at a declared cutoff —
+is the central artifact of the shared ledger, not a by-product of it. Every shared event changes
+a balance. The control total at any point is the cumulative authoritative state of the
+relationship: what was contributed, sold, delivered, paid, and owed. It is derived
+deterministically from confirmed events. Both parties agree it is correct because both parties
+confirmed the events that produced it.
+
+At period close, the control total becomes a **shared event**: both parties authorize it as the
+accepted financial position for the period. This mutual authorization is stronger than a
+traditional period-end reconciliation, which checks whether two independently kept records agree.
+In the shared ledger, there is no second independent record to check against. Agreement is
+structural — it is built into the mechanism of producing the total — not procedural.
+
+The **audit confirmation** that auditors send between counterparties ("please confirm your balance
+with us as of December 31") exists because both parties kept independent records of the same
+economic relationship and the auditor must check that they agree. In a shared ledger with mutual
+event confirmation:
+
+- The counterparty balance is a position derived from facts both parties have already authorized,
+  event by event.
+- At period close, both parties confirm the total as a shared event.
+- The auditor can inspect that shared close event directly, with its event cutoff, rule versions,
+  control totals, and authorization timestamps.
+
+The audit confirmation is therefore structurally redundant for confirmed shared relationships. The
+system produces a stronger guarantee — mutual authorization at the time of each event and at
+close — in place of a retrospective letter.
+
+This is the fundamental claim: a shared ledger with mutual event confirmation produces financial
+facts that are **co-authorized by the parties**, not asserted by one and verified expensively
+after the fact. The quality of financial truth is categorically different from independent books,
+because neither party can produce the control total alone.
+
 ## Worked example: a delivered purchase
 
 A simplified purchase can be represented as a sequence rather than as a single invoice balance:

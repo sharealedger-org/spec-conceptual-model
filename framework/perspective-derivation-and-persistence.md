@@ -83,11 +83,38 @@ copies are independent records, and later transactions between the same parties 
 reconciliation unless they are shared in a new partition. Copy-on-exit is therefore a
 generate-to-store transition and needs the same lineage as any other materialization.
 
-## Open questions
+## Resolution: period-close record is a new authoritative fact
 
-- Is a period-close record a derived cache with lineage, or a distinct authoritative fact?
+**Added October 30, 2026.** The first open question below is resolved for the purposes of the
+Small Venture Sample and proposed for general adoption:
+
+> A **period-close record** is a new authoritative fact, not a cache. It is produced by a
+> declared derivation run against a stated event cutoff, rule versions, and reference data
+> generation — but it is then authorized by the participating parties and stored as an immutable
+> shared event. It is not subject to invalidation by later events, rule changes, or software
+> updates. The stored control totals govern; regeneration from the same inputs is a verification
+> tool, not the source of authority after close. Corrections enter the next period as explicit
+> events with links to the prior close.
+
+**Why this resolves the audit reliability problem:** Auditors require inspectable, authorized
+records, not a promise that a regeneration process will reproduce a number. By making the
+period-close record a shared event — confirmed by both parties, carrying the rule versions and
+control totals in effect at the time — the system produces an artifact that auditors can inspect
+directly. The audit confirmation between counterparties is structurally replaced: the close event
+is the mutual authorization of the balance at that date, agreed at the time rather than recalled
+after the fact.
+
+**Relationship to copy-on-exit:** Both are generate-to-store transitions. Copy-on-exit (§
+Interaction with sharing lifecycle) transfers the relationship's full history into each party's
+stand-alone ledger when sharing ends. Period close is the recurring within-relationship
+materialization, producing one new authoritative fact per period. The mechanisms are the same;
+the trigger and scope differ.
+
+## Remaining open questions
+
 - How are private-input versions identified in lineage without disclosing them?
-- What invalidation rules apply when late-arriving Events change an already-materialized Position?
+- What invalidation rules apply when late-arriving Events change a **not-yet-closed** Position?
+  (Post-close positions are not subject to invalidation; the correction enters the next period.)
 - What lineage is sufficient when the unit of authorization is a repository commit (is a
   commit identifier enough when the working data differs from the committed data)?
 - Which conditions, beyond data volume, should trigger a physical change (access pattern, query

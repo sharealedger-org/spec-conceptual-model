@@ -205,3 +205,155 @@ provenance-stamp item was checked against the code; the rest come from the sessi
 - Production hosting, cost and operator assignment
 - Scale performance (Ledger Lab)
 - Phone or messaging interface design beyond what the fixture needs to show who authorized an event
+
+## 12. Agents, delegation, and cross-partition roles
+
+**Status:** New section added October 30, 2026. Proposed for discussion; not ratified.
+
+### 12.1 The agent concept
+
+The participant model in §2 defines members, operators, and customers — all external parties to
+each other, each acting in their own interest. A real venture also has **agents**: people or
+systems that act on behalf of a participant within a declared, bounded scope.
+
+An agent is not itself a participant. The agent does not own a stake or hold a partition. The
+agent's actions are attributed to the participant on whose behalf they act, under a written
+delegation that is itself a versioned record in the shared partition.
+
+**Examples in the venture fixture:**
+- A bookkeeper who prepares journals for M2 (the operator) but does not set operating policy.
+- A platform service that writes events on behalf of the operator under an authorized API key.
+- A co-founder who can propose contribution events but whose proposals require M1's confirmation
+  before they become confirmed shared facts.
+
+The delegation record must state: the agent's identity, the participant on whose behalf they act,
+the permitted event kinds and spending limits, the effective period, the confirmation requirements,
+and the revocation event type.
+
+### 12.2 Cross-partition roles
+
+An agent may hold delegations from more than one participant. This does not breach the privacy
+boundary between those participants: the agent acts under each delegation separately, with only
+the access each delegation grants, and cannot combine private information across partitions.
+
+**Example:** A CFO contractor holds a delegation from the LLC (operator) to prepare LLC books and
+from the NFP (member) to prepare NFP books. The CFO sees LLC books under the LLC delegation and
+NFP books under the NFP delegation. The LLC's vendor pricing is not visible under the NFP
+delegation. The two delegations are separate versioned records, each confirmed by the respective
+participant.
+
+The framework already distinguishes the technical writer of a commit from the business authorizer
+of an event. An agent occupies the space between those two: more than a technical writer (they
+exercise financial judgment), less than a participant (they do not own the relationship). The
+delegation record makes that scope explicit.
+
+### 12.3 Proposal and approval as event sub-states
+
+The standard event lifecycle in §3 moves from claim to confirmed fact. For governance events —
+period close, new agreements, large expenditures — an intermediate state is needed:
+
+| Sub-state | Meaning |
+|---|---|
+| `proposed` | The agent has prepared and submitted the event for review |
+| `approved` | The delegating participant has reviewed and authorized it |
+| `confirmed` | The counterparty has confirmed it (or it is an internal event requiring no counterparty) |
+
+A `proposed` event is a legitimate record. It is not a confirmed shared fact. It must not feed
+into position calculations or published books. The fixture must include at least one proposed
+event that is approved and at least one that is rejected, showing that rejection is itself a
+traceable event rather than a deletion.
+
+### 12.4 Delegation as an input to rules
+
+A rule that reads the shared partition may condition on the agent's delegated scope. An event
+prepared by an agent outside their declared spending limit must be rejected by the system before
+it reaches `proposed` status, not after. The delegation record is therefore reference data with a
+version: changing the agent's scope is a new delegation version, effective from a declared date.
+
+---
+
+## 13. Period close as a shared event
+
+**Status:** New section added October 30, 2026. Resolves the open question in
+[`perspective-derivation-and-persistence.md`](../../framework/perspective-derivation-and-persistence.md)
+for this project's use. Proposed for discussion; not ratified.
+
+### 13.1 The audit reliability problem
+
+The generate-on-demand model (§§1–11) is correct for the **live period**: shared events are
+stored once; perspectives are derived as needed. The risk for ongoing relationships is **temporal
+drift**: over months and years, rule versions change, reference data is updated, and the
+projection engine itself may be replaced. An auditor cannot assess whether today's engine
+faithfully reproduces what last year's engine produced from the same events under the same rules.
+Auditors require inspectable, authorized records — not a promise that regeneration will reproduce
+them.
+
+### 13.2 Period close is a new authoritative fact
+
+At the end of each accounting period, the following sequence produces a **period-close event**
+that is stored as a new, authoritative shared fact — not as a cache:
+
+1. **Final derivation.** The projection is run one final time under declared rule and reference
+   data versions, against all events up to and including the declared cutoff.
+2. **Agent preparation.** The authorized agent (e.g., bookkeeper or CFO) reviews the output and
+   proposes it with sub-state `proposed`.
+3. **Participant approval.** Each participant with a stake in the period reviews and approves,
+   moving the event to `approved`. For a two-member venture, both M1 and M2 must approve.
+4. **Shared event recorded.** The `approved` close event is written to the shared partition as a
+   confirmed fact, with sub-state `confirmed`.
+
+The close event carries:
+- the **event cutoff** — the ID of the last event included in this period
+- the **rule versions** in effect at close — ownership formula, chart mappings, reference data
+  generation, identified by version and effective date
+- the **control totals** — the agreed balances for each party, each account, each currency
+- the **confirming participants** and their authorization timestamps
+- a **link to the generated journal** — the complete set of entries both parties accept as their
+  books for the period
+
+### 13.3 The control total is the system
+
+The control total is not a check on the system. It is the authoritative shared fact produced by
+the close event. Both parties agree the total is correct because both parties confirmed the events
+that produced it and then authorized the close.
+
+This resolves the audit confirmation problem: an auditor does not send a letter asking "do you
+owe M1 X as of December 31?" The balance for that period is the control total in the close event,
+confirmed by both parties in the shared partition. The audit confirmation is structurally
+replaced by mutual authorization at the time of close — a stronger guarantee than a retrospective
+letter, because it was agreed at the time rather than recalled after the fact.
+
+### 13.4 Immutability and corrections
+
+A confirmed close event is immutable. It cannot be invalidated by later events, rule changes,
+or software updates. The stored control totals govern; regeneration from events is a **verification
+tool**, not the source of authority after close.
+
+If a correction is needed after close:
+- A new correcting event is recorded in the **next** period with explicit links to the prior
+  period's close event.
+- The prior close event is never modified.
+- The audit trail is: current period's close references prior close; the chain of close events
+  from the first period to the present is the complete, authorized financial history.
+
+### 13.5 Close events chain
+
+Over the life of a relationship, close events form a **chain**:
+- Each period's opening balance is derived from the prior period's close event.
+- The audit trail for any current balance traces through N close events, each confirmed by both
+  parties, back to the first event in the relationship.
+- Software replacement or rule version updates cannot silently alter historical closes, because
+  the close events carry the control totals that were agreed at the time.
+
+### 13.6 Period close as the termination of generate-on-demand
+
+Within a period, positions are derived on demand and may be cached for performance. At period
+close, the final derivation is authorized and stored as a new authoritative fact. This is the
+**generate-to-store transition** for normal operations — distinct from copy-on-exit (§7), which
+is the generate-to-store transition when the relationship itself ends.
+
+The fixture must include at least one complete period with a close event, showing the chain of
+events → derivation → proposed close → approved close → confirmed close event stored in the
+shared partition, with the next period's opening balance derived from it.
+
+---
