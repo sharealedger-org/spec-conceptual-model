@@ -7,6 +7,46 @@ cross-cutting concerns.
 
 ---
 
+## Session: 2026-11-01 — Independent close periods; counterparty acknowledgment incentive
+
+### Work completed this session
+
+- Refined the period-close model to distinguish **joint close** (jointly owned positions, e.g.,
+  venture equity) from **independent close** (cross-org positions, e.g., customer receivable,
+  vendor payable). Joint close requires all stakeholders to co-authorize; independent close is
+  authorized by the closing party alone. Parties in a cross-org relationship must not be required
+  to synchronize fiscal calendars.
+- Established **counterparty acknowledgment** as a separate, optional shared event that a
+  counterparty may record after an independent close is stored. The acknowledgment carries:
+  the close event ID, the acknowledging party's identity and timestamp, agreement or noted
+  discrepancy, and the acknowledging party's cutoff and rule versions.
+- Articulated the **audit-cost incentive** for acknowledging promptly: a timely acknowledgment,
+  together with the close event, structurally replaces the retrospective audit confirmation letter
+  for that relationship and period. Without acknowledgment, the letter is still needed.
+- Defined **acknowledgment window**: an Arrangement may declare an optional window after close
+  during which acknowledgment is expected; the absence of acknowledgment within the window is
+  itself recorded as a fact, not an error.
+- Specified **asymmetric-close corrections**: if a correction is needed after one party has closed
+  but the other has not, each party records its own correcting event in its next open period,
+  both linking to the same prior close and disputed event. Neither party's immutability is
+  violated.
+- Updated `projects/small-venture/spec.md` §13 (§§13.2, 13.3, 13.5, new §§13.7–13.8).
+- Updated `framework/perspective-derivation-and-persistence.md` Resolution section and added two
+  new open questions (acknowledgment window semantics; asymmetric correction tracing).
+
+### Open items from this session
+
+- [ ] **Acknowledgment window semantics** — should the Arrangement declare a default window, or
+  is the window always Arrangement-specific? What is a reasonable default if none is declared?
+  See `framework/perspective-derivation-and-persistence.md` Remaining open questions.
+- [ ] **Asymmetric correction tracing** — minimum linkage to make both parties' correction
+  chains traceable as a single economic correction. See framework open questions.
+- [ ] **Fixture: independent close with acknowledgment** — add at least one customer-partition
+  close event with a subsequent operator acknowledgment, and at least one period where the
+  acknowledgment window passes without response. See `projects/small-venture/spec.md` §13.8.
+
+---
+
 ## Session: 2026-10-28 — Concepts deck review; generate-vs-store rule; Small Venture Sample project
 
 ### Work completed this session
@@ -341,39 +381,45 @@ immediately. The file updates make the references authoritative and remove redir
 - [x] **E205/E206/E210/E211/E220 titles in members repo** — renamed to "Global Financial
   Institution POC" series; all file names, title lines, and cross-references updated.
 
-- [ ] **E271 transcript body** — contains a specific institution name in the body text
-  (not just location metadata). Review and redact or generalize as appropriate.
-  File: `members/content/conversations-with-kip/Transcripts/E271_Data_Quality_and_People_qTf886PKgkw.md`
+- [x] **E271 transcript body** — "at HSBC" in body text (line 18) replaced with
+  "at the global financial institution". Fixed 2026-11-01.
 
-- [ ] **Full corpus scan for confidential institution names** — systematic grep across all
-  transcript files. E196 and E205–E221 were found opportunistically; a full scan is needed.
-
-### HIGH — Hospice App (`projects/hospiceapp/`)
-
-- [ ] **Data model** (`projects/hospiceapp/data-model.md`) — field-level spec for all
-  entities; FHIR fields for covered events; designed fields for 6 gap types; rules for
-  3 structural gaps. **Next session.**
-
-- [ ] **Prototype repo scaffold** — create `sharealedger-hospice` repo on GitHub with
-  directory structure, README, and RSC lineage note. No implementation code yet.
-
-- [ ] **HIPAA BAA decision** — synthetic data sufficient for first iteration; record as
-  decision and confirm no BAA required for Dropbox/OneDrive with synthetic data.
-
-- [ ] **Consumer identity model** — prototype approach decided (URL provisioning); record
-  as a formal decision in the project.
+- [x] **Full corpus scan for confidential institution names** — systematic grep completed
+  2026-11-01. Full results:
+  - E271 body text: HSBC → fixed (above)
+  - Transcript_Sequential_Scan.md row 145 (E196): "HSBC Atrium Building, Buffalo, NY" →
+    "Global Financial Institution, Buffalo, NY" — fixed 2026-11-01
+  - E315 transcript: mentions "Wells Fargo Company Museum in Sacramento" — public museum,
+    not a confidential client; no action needed
+  - All other hits (HSBC, Citi, Morgan Stanley, etc.) were incidental general references
+    in transcript body text (generic industry discussion, not named client engagements);
+    no redaction needed
+  - Research papers (members/research/): all institution references already correctly
+    anonymized ("major U.S. property & casualty insurer", "Tier-1 global bank")
+  - Corpus scan complete; no further confidential institution names found
 
 ### HIGH — Shared Storage (`projects/shared-storage/`)
 
 - [ ] **Interface contract formalization** — OpenAPI or AsyncAPI for the 8 operations.
-  Dropbox is the first concrete binding. Blocks hospice prototype coding.
+  Dropbox is the first concrete binding. Note: hospice prototype is on hold; the contract
+  is still needed to unblock Small Venture Sample storage work.
   See `projects/shared-storage/todo.md`.
 
 - [ ] **Provider registration model** — minimum viable manifest format for Arrangement
   endpoint discovery.
 
-- [ ] **IBM Cloud prototype plan** — lower priority now; relevant only for HIPAA-eligible
-  deployment. Dropbox/OneDrive serve the synthetic-data prototype.
+- [ ] **IBM Cloud prototype plan** — lower priority; relevant only for HIPAA-eligible
+  deployment.
+
+### ON HOLD — Hospice App (`projects/hospiceapp/`)
+
+**Status: on hold as of 2026-11-01. All items below are deferred until hospice work is
+resumed. See `projects/hospiceapp/todo.md` for the full task list.**
+
+- [ ] **Data model** (`projects/hospiceapp/data-model.md`)
+- [ ] **Prototype repo scaffold** (`sharealedger-hospice` on GitHub)
+- [ ] **HIPAA BAA decision**
+- [ ] **Consumer identity model**
 
 ### MEDIUM — Important for conceptual model completeness
 
@@ -435,9 +481,17 @@ immediately. The file updates make the references authoritative and remove redir
 
 Specific institution names found and already addressed:
 - E196 transcript location (members repo) — fixed previous session
+- E196 Transcript_Sequential_Scan.md location field — fixed 2026-11-01
 - E205, E206, E210, E211, E220, E221 transcript titles (members repo) — renamed to
   "Global Financial Institution POC" series; all file names, title lines, and
   cross-references updated
+- E271 transcript body text — "at HSBC" → "at the global financial institution" — fixed 2026-11-01
+
+**Full corpus scan completed 2026-11-01.** No further confidential institution names found
+in transcript files or research papers. Scan used grep across all `.md` files in the
+members repo for: HSBC, Citibank, JPMorgan, JP Morgan, Goldman Sachs, Wells Fargo,
+Bank of America, Barclays, Deutsche Bank, UBS, Credit Suisse, Morgan Stanley, Merrill Lynch,
+Lloyds, RBS, NatWest, Santander, BNP Paribas, Société Générale.
 
 If you encounter any other institution names in any public repo file, fix immediately
 and log here.

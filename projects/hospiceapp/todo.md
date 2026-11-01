@@ -1,5 +1,8 @@
 # Hospice App — Active Task List
 
+**Status: ON HOLD as of 2026-11-01.** All work deferred until hospice is re-prioritized.
+No action should be taken on items below without first updating this status line.
+
 Items are tracked here by priority. Move completed items to `log.md` when done.
 
 ---

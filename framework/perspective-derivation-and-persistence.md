@@ -98,11 +98,32 @@ Small Venture Sample and proposed for general adoption:
 
 **Why this resolves the audit reliability problem:** Auditors require inspectable, authorized
 records, not a promise that a regeneration process will reproduce a number. By making the
-period-close record a shared event — confirmed by both parties, carrying the rule versions and
-control totals in effect at the time — the system produces an artifact that auditors can inspect
-directly. The audit confirmation between counterparties is structurally replaced: the close event
-is the mutual authorization of the balance at that date, agreed at the time rather than recalled
-after the fact.
+period-close record a shared event — carrying the rule versions and control totals in effect at
+the time — the system produces an artifact that auditors can inspect directly.
+
+**Joint close vs. independent close with acknowledgment** (added November 1, 2026): The
+authorization required at close depends on who owns the position being closed.
+
+- **Jointly owned positions** (e.g., venture equity, member contributions): all participants with
+  a stake must authorize the close. The close event is the mutual authorization of the shared
+  balance at that date, agreed at the time rather than recalled after the fact. The audit
+  confirmation between counterparties is structurally replaced.
+
+- **Independently owned positions** (e.g., a customer's receivable, a vendor's payable in a
+  cross-org relationship): the closing party alone authorizes the close. Parties in a cross-org
+  relationship do not share a fiscal calendar and must not be required to synchronize close dates.
+  The counterparty may record an optional **acknowledgment event** after the close is stored. The
+  acknowledgment states the close event being acknowledged, the acknowledging party's agreement or
+  noted discrepancy, and the cutoff and rule versions under which they agree. It is not a
+  precondition for the close to be authoritative; it is a separate event that strengthens the
+  evidentiary record.
+
+**Why acknowledgment is worth doing:** Without it, an auditor must still rely on a retrospective
+confirmation letter for that relationship. With a timely acknowledgment, the close event and its
+acknowledgment together structurally replace the letter — both parties hold a shared record
+showing the counterparty had seen and agreed to the balance at the time of close, not months later.
+The absence of an acknowledgment within a declared window is itself a recorded fact, not an error,
+and signals that the traditional audit confirmation letter will still be needed.
 
 **Relationship to copy-on-exit:** Both are generate-to-store transitions. Copy-on-exit (§
 Interaction with sharing lifecycle) transfers the relationship's full history into each party's
@@ -119,6 +140,12 @@ the trigger and scope differ.
   commit identifier enough when the working data differs from the committed data)?
 - Which conditions, beyond data volume, should trigger a physical change (access pattern, query
   frequency, latency target)?
+- **Acknowledgment window semantics:** should the Arrangement declare a default window, or is
+  the window always Arrangement-specific? What is the recommended default if none is declared?
+- **Asymmetric correction tracing:** when one party has closed and a correcting event is needed,
+  both parties record separate corrections linking to the same prior close and disputed event.
+  What is the minimum linkage required to make both correction chains traceable as a single
+  economic correction?
 
 ## Evidence from current work
 

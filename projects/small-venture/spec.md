@@ -297,8 +297,11 @@ that is stored as a new, authoritative shared fact — not as a cache:
    data versions, against all events up to and including the declared cutoff.
 2. **Agent preparation.** The authorized agent (e.g., bookkeeper or CFO) reviews the output and
    proposes it with sub-state `proposed`.
-3. **Participant approval.** Each participant with a stake in the period reviews and approves,
-   moving the event to `approved`. For a two-member venture, both M1 and M2 must approve.
+3. **Participant approval.** The closing party reviews and authorizes the event. For shared
+   positions jointly owned by two or more participants (e.g., venture equity, member
+   contributions), all participants with a stake must approve before the event moves to
+   `approved`. For a participant's own position in a cross-org relationship (e.g., a customer's
+   receivable, a vendor's payable), the closing party alone moves the event to `approved`.
 4. **Shared event recorded.** The `approved` close event is written to the shared partition as a
    confirmed fact, with sub-state `confirmed`.
 
@@ -314,14 +317,18 @@ The close event carries:
 ### 13.3 The control total is the system
 
 The control total is not a check on the system. It is the authoritative shared fact produced by
-the close event. Both parties agree the total is correct because both parties confirmed the events
-that produced it and then authorized the close.
+the close event. For jointly owned positions, both parties agree the total is correct because both
+confirmed the events that produced it and then authorized the close. For independently owned
+positions, the closing party holds the authoritative total; the counterparty may confirm it as
+described in §13.7.
 
 This resolves the audit confirmation problem: an auditor does not send a letter asking "do you
 owe M1 X as of December 31?" The balance for that period is the control total in the close event,
-confirmed by both parties in the shared partition. The audit confirmation is structurally
+in the shared partition. For a jointly authorized close, the audit confirmation is structurally
 replaced by mutual authorization at the time of close — a stronger guarantee than a retrospective
-letter, because it was agreed at the time rather than recalled after the fact.
+letter, because it was agreed at the time rather than recalled after the fact. For an
+independently closed position, the audit confirmation is replaced once the counterparty has
+acknowledged the close (§13.7).
 
 ### 13.4 Immutability and corrections
 
@@ -340,8 +347,9 @@ If a correction is needed after close:
 
 Over the life of a relationship, close events form a **chain**:
 - Each period's opening balance is derived from the prior period's close event.
-- The audit trail for any current balance traces through N close events, each confirmed by both
-  parties, back to the first event in the relationship.
+- The audit trail for any current balance traces through N close events back to the first event
+  in the relationship. Each close event carries the control totals agreed at the time, whether
+  jointly or unilaterally authorized.
 - Software replacement or rule version updates cannot silently alter historical closes, because
   the close events carry the control totals that were agreed at the time.
 
@@ -355,5 +363,72 @@ is the generate-to-store transition when the relationship itself ends.
 The fixture must include at least one complete period with a close event, showing the chain of
 events → derivation → proposed close → approved close → confirmed close event stored in the
 shared partition, with the next period's opening balance derived from it.
+
+### 13.7 Independent close periods and counterparty acknowledgment
+
+**Status:** Added November 1, 2026. Proposed for discussion; not ratified.
+
+Parties in a cross-org relationship do not share a fiscal calendar. A customer may close monthly;
+a vendor may close quarterly; a member may not close on the same date as the venture. The model
+must not require parties to synchronize their close dates.
+
+**Independent close is the default for cross-org relationships.** A participant closes its own
+position on its own schedule. The counterparty is not required to act before that close is stored.
+The close event is written to the shared partition as a confirmed fact for the closing party's
+perspective, carrying that party's control totals and cutoff. The counterparty may read it at any
+time.
+
+**Counterparty acknowledgment is optional but valuable.** After a close event is written, the
+counterparty may record an **acknowledgment event** in the shared partition. The acknowledgment
+states:
+- the close event being acknowledged (by ID);
+- the acknowledging party's identity and timestamp;
+- whether the acknowledging party's own records agree with the control totals stated in the close
+  event, and if so, under what cutoff and rule versions; and
+- any noted discrepancy (which does not invalidate the close but creates a traceable dispute
+  record).
+
+An acknowledgment is not a required precondition for the close to be authoritative. It is a
+separate, optional event that strengthens the evidentiary record.
+
+**Why acknowledgment is worth doing.** The incentive is audit cost. Without acknowledgment, an
+auditor asking "does the counterparty agree with this balance?" must rely on a retrospective
+confirmation letter — the same expensive, recall-dependent process that shared ledgers are
+designed to replace. With a timely acknowledgment:
+
+- The close event and its acknowledgment together structurally replace the audit confirmation
+  letter for that relationship and that period.
+- The acknowledging party produces its reconciliation record at the moment when the period is
+  fresh and events are easily identified, rather than months later under audit pressure.
+- Both parties hold a shared event showing that, at the time of close, the counterparty had
+  seen the balance and agreed (or noted any discrepancy).
+- The absence of an acknowledgment within a declared window is itself informative: it does not
+  invalidate the close, but it signals that the audit confirmation letter will still be needed.
+
+**Dispute window.** An Arrangement may declare an optional acknowledgment window — a period after
+close during which the counterparty is expected to acknowledge or note a discrepancy. If the
+window passes without acknowledgment, neither party's records are invalidated; the absence is
+recorded as a fact (no acknowledgment event was written before the window closed). Auditors and
+the parties themselves can use the presence or absence of acknowledgment as a signal of
+reconciliation quality.
+
+**Asymmetric close and corrections.** If a correcting event is needed after one party has closed
+but the other has not, the correction enters the open party's current period in the normal way. The
+closed party's immutable close event is not changed. Instead, the closed party records a correcting
+event in its next open period, linking to both the prior close and the disputed event. Both
+correction paths are traceable in the shared partition; neither party's immutability is violated.
+
+### 13.8 Summary: joint close vs. independent close with acknowledgment
+
+| Relationship type | Close authorization | Counterparty role | Audit confirmation replaced? |
+|---|---|---|---|
+| Jointly owned position (venture equity, member contributions) | All joint participants must approve | Required co-authorizer | Yes — structurally, by mutual authorization |
+| Cross-org independent position (customer receivable, vendor payable) | Closing party alone | Optional acknowledger | Yes — when acknowledgment is recorded; otherwise still requires letter |
+| Cross-org with no acknowledgment | Closing party alone | None (or late) | No — audit letter still needed for that relationship |
+
+The fixture must include at least one independently closed position (e.g., a customer-partition
+close by the operator) with a subsequent counterparty acknowledgment event, and at least one
+period where the acknowledgment window passes without a response — showing that the absence of
+acknowledgment is recorded as a fact rather than treated as an error.
 
 ---
